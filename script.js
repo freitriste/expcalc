@@ -1,6 +1,4 @@
-document.getElementById("xpForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-
+document.addEventListener("DOMContentLoaded", function() {
     const xp_values = [
         0, 100, 200, 300, 400, 500, 600, 700, 800, 900,
         1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900,
@@ -19,44 +17,70 @@ document.getElementById("xpForm").addEventListener("submit", function(event) {
         140000000, 145000000, 150000000, 155000000, 160000000, 165000000, 170000000, 175000000, 180000000, 185000000
     ];
 
-    const nivelInicial = parseInt(document.getElementById("nivelInicial").value);
-    const nivelFinal = parseInt(document.getElementById("nivelFinal").value);
+    const form = document.getElementById("xpForm");
+    const resultado = document.getElementById("resultado");
+    const languageSelector = document.getElementById("language");
+    const toggleModeButton = document.getElementById("toggleMode");
 
-    if (nivelFinal <= nivelInicial) {
-        document.getElementById("resultado").textContent = language === 'pt' ? "O nível final deve ser maior que o nível inicial." : "The final level must be higher than the initial level.";
-        return;
+    // Função para formatar números com separador de milhar
+    function formatNumber(number) {
+        return number.toLocaleString();
     }
 
-    let totalXp = 0;
-    for (let i = nivelInicial; i < nivelFinal; i++) {
-        totalXp += xp_values[i];
+    // Função para calcular XP
+    function calculaXP(nivelInicial, nivelFinal) {
+        let totalXP = 0;
+        for (let i = nivelInicial; i <= nivelFinal - 1; i++) {
+            totalXP += xp_values[i];
+        }
+        return totalXP;
     }
 
-    // Formatar o número de XP com separadores de milhares
-    const formattedXp = totalXp.toLocaleString(language === 'pt' ? 'pt-BR' : 'en-US');
+    // Função para atualizar o idioma
+    function updateLanguage() {
+        const language = languageSelector.value;
+        if (language === "pt") {
+            document.getElementById("title").textContent = "Cálculo de XP de Nível";
+            document.querySelector(".label-nivelInicial").textContent = "Nível Inicial:";
+            document.querySelector(".label-nivelFinal").textContent = "Nível Final:";
+            document.getElementById("calculateButton").textContent = "Calcular XP";
+            document.getElementById("credits").textContent = "Desenvolvido por @freitriste";
+            document.getElementById("toggleMode").className = "fas fa-moon"; // Ícone da lua
+        } else if (language === "en") {
+            document.getElementById("title").textContent = "XP Level Calculation";
+            document.querySelector(".label-nivelInicial").textContent = "Initial Level:";
+            document.querySelector(".label-nivelFinal").textContent = "Final Level:";
+            document.getElementById("calculateButton").textContent = "Calculate XP";
+            document.getElementById("credits").textContent = "Developed by @freitriste";
+            document.getElementById("toggleMode").className = "fas fa-moon"; // Ícone da lua
+        }
+    }
 
-    document.getElementById("resultado").textContent = language === 'pt'
-        ? `O total de XP necessário para subir do nível ${nivelInicial} ao nível ${nivelFinal} é ${formattedXp}.`
-        : `The total XP required to go from level ${nivelInicial} to level ${nivelFinal} is ${formattedXp}.`;
-});
+    // Função para alternar entre modos
+    function toggleMode() {
+        document.body.classList.toggle("light-mode");
+        if (document.body.classList.contains("light-mode")) {
+            toggleModeButton.className = "fas fa-sun"; // Ícone do sol
+        } else {
+            toggleModeButton.className = "fas fa-moon"; // Ícone da lua
+        }
+    }
 
-const languageSelector = document.getElementById("language");
-let language = languageSelector.value;
+    // Evento de envio do formulário
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const nivelInicial = parseInt(document.getElementById("nivelInicial").value) - 1;
+        const nivelFinal = parseInt(document.getElementById("nivelFinal").value);
+        const totalXP = calculaXP(nivelInicial, nivelFinal);
+        resultado.textContent = `O total de XP necessário para subir do nível ${nivelInicial + 1} ao nível ${nivelFinal} é ${formatNumber(totalXP)}`;
+    });
 
-languageSelector.addEventListener("change", function() {
-    language = this.value;
+    // Evento de mudança de idioma
+    languageSelector.addEventListener("change", updateLanguage);
+
+    // Evento de alternância de modo
+    toggleModeButton.addEventListener("click", toggleMode);
+
+    // Inicializa o idioma
     updateLanguage();
 });
-
-function updateLanguage() {
-    document.getElementById("title").textContent = language === 'pt' ? "Cálculo de XP de Nível" : "Level XP Calculator";
-    document.querySelector(".label-nivelInicial").textContent = language === 'pt' ? "Nível Inicial:" : "Initial Level:";
-    document.querySelector(".label-nivelFinal").textContent = language === 'pt' ? "Nível Final:" : "Final Level:";
-    document.getElementById("calculateButton").textContent = language === 'pt' ? "Calcular XP" : "Calculate XP";
-    document.getElementById("credits").textContent = language === 'pt' 
-        ? "Desenvolvido por @freitriste" 
-        : "Developed by @freitriste";
-}
-
-// Chame a função para definir o idioma inicial
-updateLanguage();
