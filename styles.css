@@ -1,31 +1,35 @@
 /* Estilo geral para a página */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #333; /* Cor de fundo padrão para modo noturno */
+    color: #fff; /* Cor do texto padrão para modo noturno */
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: #333;
     flex-direction: column;
+    transition: background-color 0.3s, color 0.3s;
 }
 
+/* Container */
 .container {
-    background-color: #fff;
+    background-color: #444; /* Cor de fundo do contêiner para modo noturno */
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     max-width: 400px;
     width: 100%;
+    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
 }
 
+/* Cabeçalho e Título */
 h1 {
     text-align: center;
     font-size: 24px;
     margin-bottom: 20px;
-    color: #333;
+    color: #fff; /* Cor do texto do título para modo noturno */
 }
 
 /* Estilo para o formulário */
@@ -37,18 +41,21 @@ form {
 label {
     font-weight: bold;
     margin-bottom: 5px;
+    font-size: 16px;
 }
 
 input[type="number"] {
     padding: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #666; /* Cor da borda para modo noturno */
     border-radius: 4px;
     font-size: 16px;
+    background-color: #555; /* Cor de fundo dos inputs para modo noturno */
+    color: #fff; /* Cor do texto dos inputs para modo noturno */
 }
 
 button[type="submit"] {
-    background-color: #016134;
+    background-color: #01ad5d;
     color: #fff;
     padding: 10px;
     border: none;
@@ -59,7 +66,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #14d454;
+    background-color: #016134;
 }
 
 /* Estilo para o resultado */
@@ -83,7 +90,7 @@ button[type="submit"]:hover {
 
 select {
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #666; /* Cor da borda para modo noturno */
     border-radius: 4px;
     font-size: 14px;
 }
@@ -93,10 +100,99 @@ footer {
     margin-top: 20px;
     text-align: center;
     font-size: 14px;
-    color: #777;
+    color: #bbb; /* Cor do texto do rodapé para modo noturno */
     width: 100%; /* Garante que o rodapé ocupe toda a largura do contêiner */
 }
 
 footer p {
     margin: 0;
+}
+
+/* Estilo para o botão de alternância de modo */
+.mode-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #fff;
+    transition: color 0.3s;
+}
+
+.mode-toggle .fa-sun {
+    display: none; /* Oculta o ícone do sol por padrão */
+}
+
+/* Estilo para o modo claro */
+.light-mode {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.light-mode .container {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.light-mode h1 {
+    color: #333;
+}
+
+.light-mode input[type="number"] {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.light-mode button[type="submit"] {
+    background-color: #007bff;
+}
+
+.light-mode footer {
+    color: #777;
+}
+
+.light-mode .mode-toggle .fa-moon {
+    display: none; /* Oculta o ícone da lua no modo claro */
+}
+
+.light-mode .mode-toggle .fa-sun {
+    display: inline; /* Mostra o ícone do sol no modo claro */
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    label, input[type="number"], button[type="submit"] {
+        font-size: 14px;
+    }
+
+    input[type="number"] {
+        padding: 8px;
+    }
+
+    button[type="submit"] {
+        padding: 8px;
+    }
+
+    .language-selector {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .language-selector label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    select {
+        width: 100%;
+    }
 }
