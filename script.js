@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Função para calcular XP
     function calculaXP(nivelInicial, nivelFinal) {
         let totalXP = 0;
-        for (let i = nivelInicial; i <= nivelFinal - 1; i++) {
+        for (let i = nivelInicial+1; i < nivelFinal; i++) {
             totalXP += xp_values[i];
         }
         return totalXP;
