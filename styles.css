@@ -21,7 +21,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     max-width: 400px;
     width: 100%;
-    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+    box-sizing: border-box;
 }
 
 /* Cabeçalho e Título */
@@ -101,7 +101,17 @@ footer {
     text-align: center;
     font-size: 14px;
     color: #bbb; /* Cor do texto do rodapé para modo noturno */
-    width: 100%; /* Garante que o rodapé ocupe toda a largura do contêiner */
+    width: 100%;
+}
+
+footer a {
+    color: #72a7ff; /* Cor do hyperlink que combina com ambos os temas */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+footer a:hover {
+    color: #0056b3; /* Cor do hyperlink ao passar o mouse */
 }
 
 footer p {
@@ -111,26 +121,27 @@ footer p {
 /* Estilo para o botão de alternância de modo */
 .mode-toggle {
     position: absolute;
-    top: 20px;
+    bottom: 20px;
     right: 20px;
     font-size: 24px;
     cursor: pointer;
-    color: #fff;
+    color: #2bb1ef;
     transition: color 0.3s;
 }
 
 .mode-toggle .fa-sun {
     display: none; /* Oculta o ícone do sol por padrão */
+    color: #f8c241; /* Cor do ícone do sol */
 }
 
 /* Estilo para o modo claro */
 .light-mode {
-    background-color: #f4f4f4;
+    background-color: #fafafa;
     color: #333;
 }
 
 .light-mode .container {
-    background-color: #fff;
+    background-color: #ffffffe1;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 

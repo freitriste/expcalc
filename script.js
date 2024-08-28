@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Função para calcular XP
     function calculaXP(nivelInicial, nivelFinal) {
         let totalXP = 0;
-        for (let i = nivelInicial+1; i < nivelFinal; i++) {
+        for (let i = nivelInicial + 1; i < nivelFinal; i++) {
             totalXP += xp_values[i];
         }
         return totalXP;
@@ -38,29 +38,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Função para atualizar o idioma
     function updateLanguage() {
-        const language = languageSelector.value;
+        const language = localStorage.getItem('language') || 'pt';
+        languageSelector.value = language;
         if (language === "pt") {
-            
-            document.getElementById("js_tiltle").textContent = "Cálculadora de XP do Herói";
+            document.getElementById("js_tiltle").textContent = "Cálculo de XP de Nível";
             document.querySelector(".label-nivelInicial").textContent = "Nível Inicial:";
             document.querySelector(".label-nivelFinal").textContent = "Nível Final:";
             document.getElementById("calculateButton").textContent = "Calcular XP";
-            document.getElementById("credits").textContent = "Desenvolvido por @freitriste";
-            document.getElementById("toggleMode").className = "fas fa-moon"; // Ícone da lua
+            document.getElementById("credits").innerHTML = 'Desenvolvido por <a href="https://github.com/freitriste">@freitriste</a> e <a href="https://github.com/matheusvhs">@matheusvhs</a>';
         } else if (language === "en") {
-
             document.getElementById("js_tiltle").textContent = "Hero XP Calculator";
             document.querySelector(".label-nivelInicial").textContent = "Initial Level:";
             document.querySelector(".label-nivelFinal").textContent = "Final Level:";
             document.getElementById("calculateButton").textContent = "Calculate XP";
-            document.getElementById("credits").textContent = "Developed by @freitriste";
-            document.getElementById("toggleMode").className = "fas fa-moon"; // Ícone da lua
+            document.getElementById("credits").innerHTML = 'Developed by <a href="https://github.com/freitriste">@freitriste</a> and <a href="https://github.com/matheusvhs">@matheusvhs</a>';
         }
     }
 
     // Função para atualizar o resultado
     function updateResult(nivelInicial, nivelFinal, totalXP) {
-        const language = languageSelector.value;
+        const language = localStorage.getItem('language') || 'pt';
         if (language === "pt") {
             resultado.textContent = `O total de XP necessário para subir do nível ${nivelInicial + 1} ao nível ${nivelFinal} é ${formatNumber(totalXP)}`;
         } else if (language === "en") {
@@ -72,8 +69,10 @@ document.addEventListener("DOMContentLoaded", function() {
     function toggleMode() {
         document.body.classList.toggle("light-mode");
         if (document.body.classList.contains("light-mode")) {
+            localStorage.setItem('theme', 'light');
             toggleModeButton.className = "fas fa-sun"; // Ícone do sol
         } else {
+            localStorage.setItem('theme', 'dark');
             toggleModeButton.className = "fas fa-moon"; // Ícone da lua
         }
     }
@@ -89,6 +88,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Evento de mudança de idioma
     languageSelector.addEventListener("change", function() {
+        const language = languageSelector.value;
+        localStorage.setItem('language', language);
         updateLanguage();
         const nivelInicial = parseInt(document.getElementById("nivelInicial").value) - 1;
         const nivelFinal = parseInt(document.getElementById("nivelFinal").value);
@@ -103,4 +104,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Inicializa o idioma e o modo
     updateLanguage();
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add("light-mode");
+        toggleModeButton.className = "fas fa-sun"; // Ícone do sol
+    } else {
+        document.body.classList.remove("light-mode");
+        toggleModeButton.className = "fas fa-moon"; // Ícone da lua
+    }
 });
