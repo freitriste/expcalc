@@ -40,14 +40,16 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateLanguage() {
         const language = languageSelector.value;
         if (language === "pt") {
-            document.getElementById("title").textContent = "Cálculo de XP de Nível";
+            
+            document.getElementById("js_tiltle").textContent = "Cálculadora de XP do Herói";
             document.querySelector(".label-nivelInicial").textContent = "Nível Inicial:";
             document.querySelector(".label-nivelFinal").textContent = "Nível Final:";
             document.getElementById("calculateButton").textContent = "Calcular XP";
             document.getElementById("credits").textContent = "Desenvolvido por @freitriste";
             document.getElementById("toggleMode").className = "fas fa-moon"; // Ícone da lua
         } else if (language === "en") {
-            document.getElementById("title").textContent = "XP Level Calculation";
+
+            document.getElementById("js_tiltle").textContent = "Hero XP Calculator";
             document.querySelector(".label-nivelInicial").textContent = "Initial Level:";
             document.querySelector(".label-nivelFinal").textContent = "Final Level:";
             document.getElementById("calculateButton").textContent = "Calculate XP";
