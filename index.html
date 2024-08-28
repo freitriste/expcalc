@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de XP de Nível</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="language-selector">
+            <label for="language">Idioma/Language:</label>
+            <select id="language">
+                <option value="pt">Português</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+
+        <h1 id="title">Cálculo de XP de Nível</h1>
+        <form id="xpForm">
+            <label for="nivelInicial" class="label-nivelInicial">Nível Inicial:</label>
+            <input type="number" id="nivelInicial" name="nivelInicial" min="1" max="150" required>
+
+            <label for="nivelFinal" class="label-nivelFinal">Nível Final:</label>
+            <input type="number" id="nivelFinal" name="nivelFinal" min="1" max="150" required>
+
+            <button type="submit" id="calculateButton">Calcular XP</button>
+        </form>
+
+        <div id="resultado"></div>
+    </div>
+
+    <footer>
+        <p id="credits">Desenvolvido por @freitriste</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
