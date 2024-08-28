@@ -56,6 +56,16 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // Função para atualizar o resultado
+    function updateResult(nivelInicial, nivelFinal, totalXP) {
+        const language = languageSelector.value;
+        if (language === "pt") {
+            resultado.textContent = `O total de XP necessário para subir do nível ${nivelInicial + 1} ao nível ${nivelFinal} é ${formatNumber(totalXP)}`;
+        } else if (language === "en") {
+            resultado.textContent = `The total XP required to level up from level ${nivelInicial + 1} to level ${nivelFinal} is ${formatNumber(totalXP)}`;
+        }
+    }
+
     // Função para alternar entre modos
     function toggleMode() {
         document.body.classList.toggle("light-mode");
@@ -72,15 +82,23 @@ document.addEventListener("DOMContentLoaded", function() {
         const nivelInicial = parseInt(document.getElementById("nivelInicial").value) - 1;
         const nivelFinal = parseInt(document.getElementById("nivelFinal").value);
         const totalXP = calculaXP(nivelInicial, nivelFinal);
-        resultado.textContent = `O total de XP necessário para subir do nível ${nivelInicial + 1} ao nível ${nivelFinal} é ${formatNumber(totalXP)}`;
+        updateResult(nivelInicial, nivelFinal, totalXP);
     });
 
     // Evento de mudança de idioma
-    languageSelector.addEventListener("change", updateLanguage);
+    languageSelector.addEventListener("change", function() {
+        updateLanguage();
+        const nivelInicial = parseInt(document.getElementById("nivelInicial").value) - 1;
+        const nivelFinal = parseInt(document.getElementById("nivelFinal").value);
+        if (!isNaN(nivelInicial) && !isNaN(nivelFinal) && nivelInicial < nivelFinal) {
+            const totalXP = calculaXP(nivelInicial, nivelFinal);
+            updateResult(nivelInicial, nivelFinal, totalXP);
+        }
+    });
 
     // Evento de alternância de modo
     toggleModeButton.addEventListener("click", toggleMode);
 
-    // Inicializa o idioma
+    // Inicializa o idioma e o modo
     updateLanguage();
 });
